@@ -1,0 +1,136 @@
+<html>
+
+<head>
+    <title>Simple Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        .container {
+            width: 300px;
+            margin: 0 auto;
+            border: 1px solid black;
+            padding: 10px;
+        }
+
+        .display {
+            width: 280px;
+            height: 40px;
+            margin: 10px;
+            border: 1px solid gray;
+            font-size: 24px;
+            text-align: right;
+        }
+
+        .button {
+            width: 60px;
+            height: 40px;
+            margin: 5px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Simple Calculator</h1>
+        <input type="text" id="display" class="display" value="0" readonly>
+        <div>
+            <button id="btn7" class="button" onclick="appendNumber(7)">7</button>
+            <button id="btn8" class="button" onclick="appendNumber(8)">8</button>
+            <button id="btn9" class="button" onclick="appendNumber(9)">9</button>
+            <button id="btnDiv" class="button" onclick="appendOperator('/')">/</button>
+        </div>
+        <div>
+            <button id="btn4" class="button" onclick="appendNumber(4)">4</button>
+            <button id="btn5" class="button" onclick="appendNumber(5)">5</button>
+            <button id="btn6" class="button" onclick="appendNumber(6)">6</button>
+            <button id="btnMul" class="button" onclick="appendOperator('*')">*</button>
+        </div>
+        <div>
+            <button id="btn1" class="button" onclick="appendNumber(1)">1</button>
+            <button id="btn2" class="button" onclick="appendNumber(2)">2</button>
+            <button id="btn3" class="button" onclick="appendNumber(3)">3</button>
+            <button id="btnSub" class="button" onclick="appendOperator('-')">-</button>
+        </div>
+        <div>
+            <button id="btn0" class="button" onclick="appendNumber(0)">0</button>
+            <button id="btnDot" class="button" onclick="appendNumber('.')">.</button>
+            <button id="btnEq" class="button" onclick="calculate()">=</button>
+            <button id="btnAdd" class="button" onclick="appendOperator('+')">+</button>
+        </div>
+        <div>
+            <button id="btnClr" class="button" onclick="clearDisplay()">C</button>
+            <button id="btnDel" class="button" onclick="deleteLast()">DEL</button>
+        </div>
+    </div>
+    <script>
+        var display = document.getElementById("display");
+
+
+        function appendNumber(num) {
+
+            if (display.value == "0") {
+                display.value = num;
+            }
+
+            else {
+                display.value += num;
+            }
+        }
+
+
+        function appendOperator(op) {
+
+            if (display.value != "" && !isOperator(display.value.slice(-1))) {
+                display.value += op;
+            }
+        }
+
+
+        function isOperator(char) {
+            return char == "+" || char == "-" || char == "*" || char == "/";
+        }
+
+
+        function calculate() {
+
+            try {
+                var result = eval(display.value);
+
+                if (!isNaN(result)) {
+                    display.value = result;
+                }
+
+                else {
+                    display.value = "Error";
+                }
+            }
+
+            catch (e) {
+                display.value = "Error";
+            }
+        }
+
+
+        function clearDisplay() {
+            display.value = "0";
+        }
+
+
+        function deleteLast() {
+
+            if (display.value != "") {
+                display.value = display.value.slice(0, -1);
+            }
+
+            if (display.value == "") {
+                display.value = "0";
+            }
+        }
+    </script>
+</body>
+
+</html>
